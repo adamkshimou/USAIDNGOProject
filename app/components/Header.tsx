@@ -1,5 +1,6 @@
 'use client'
 
+
 import { useState, useCallback } from 'react'
 import Link from 'next/link'
 import { Link as ScrollLink } from 'react-scroll'
@@ -8,42 +9,45 @@ import { Moon, Sun, Menu } from 'lucide-react'
 import Image from 'next/image'
 
 export default function Header({ isDarkMode }: { isDarkMode: boolean }) {
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const [darkMode, setDarkMode] = useState(isDarkMode)
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [darkMode, setDarkMode] = useState(isDarkMode);
 
   const toggleDarkMode = useCallback(() => {
     if (typeof window !== 'undefined') {
-      const newMode = !darkMode
-      setDarkMode(newMode)
-      document.documentElement.classList.toggle('dark', newMode)
-      localStorage.setItem('darkMode', JSON.stringify(newMode))
+      const newMode = !darkMode;
+      setDarkMode(newMode);
+      document.documentElement.classList.toggle('dark', newMode);
+      localStorage.setItem('darkMode', JSON.stringify(newMode));
     }
-  }, [darkMode])
+  }, [darkMode]);
 
   return (
-    <motion.header 
+    <motion.header
       initial={{ opacity: 0, y: -50 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
-      className="bg-white dark:bg-gray-900 shadow-md"
+    className="bg-white dark:bg-gray-900 shadow-md"
     >
       <div className="container mx-auto px-4 py-4 flex justify-between items-center">
         <Link href="/" className="flex items-center">
-          <Image 
-            src="/flag.png" 
-            alt="Sri Lanka Flag" 
-            width={32} 
-            height={32} 
+          <Image
+            src="/flag.png"
+            alt="Sri Lanka Flag"
+            width={32}
+            height={32}
             className="mr-2"
           />
-          <span className="text-2xl font-bold text-amber-500 dark:text-white">Hearts for Sri Lanka</span>
+          <span className={`text-2xl font-bold ${darkMode ? 'text-amber-500' : 'text-amber-500'}`}>
+            Hearts for Sri Lanka
+          </span>
         </Link>
-        <nav className="hidden md:flex space-x-4">
+        <nav className={`hidden md:flex space-x-4 ${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>
           <ScrollLink to="mission" smooth={true} duration={500} className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 cursor-pointer">Our Mission</ScrollLink>
           <ScrollLink to="ways-to-give" smooth={true} duration={500} className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 cursor-pointer">Ways to Give</ScrollLink>
           <ScrollLink to="research" smooth={true} duration={500} className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 cursor-pointer">Research</ScrollLink>
           <ScrollLink to="contact" smooth={true} duration={500} className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 cursor-pointer">Contact Us</ScrollLink>
           <Link href="/login" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">Log In</Link>
+          <Link href="/" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">Home</Link>
         </nav>
         <div className="flex items-center space-x-4">
           <motion.button 
@@ -77,7 +81,8 @@ export default function Header({ isDarkMode }: { isDarkMode: boolean }) {
             <ScrollLink to="ways-to-give" smooth={true} duration={500} className="block px-4 py-2 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer">Ways to Give</ScrollLink>
             <ScrollLink to="research" smooth={true} duration={500} className="block px-4 py-2 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer">Research</ScrollLink>
             <ScrollLink to="contact" smooth={true} duration={500} className="block px-4 py-2 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer">Contact Us</ScrollLink>
-            <Link href="/login" className="block px-4 py-2 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">Log In</Link>
+            <Link href="/login" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">Log In</Link>
+            <Link href="/" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">Home</Link>
           </motion.nav>
         )}
       </AnimatePresence>
